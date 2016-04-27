@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 
+import DatePicker from 'material-ui/lib/date-picker/date-picker';
+import TextField from 'material-ui/lib/text-field';
+import RaisedButton from 'material-ui/lib/raised-button';
+import ContentSave from 'material-ui/lib/svg-icons/content/save';
+
 import BillComponent from '../components/BillComponent';
 import BillStore from '../components/BillStore';
 import * as BillActions from '../actions/BillActions';
@@ -43,12 +48,21 @@ export default class Bill extends Component {
 		BillActions.createBill(data);
 	}
 
+	keyDownPrice (e) {
+		let { value } = e.target;
+		e.target.value = value.replace(/\D/, '');
+	}
+
 	render () {
 		const { bills } = this.state;
 
 		const BillComponents = bills.map((bill) => {
 			return <BillComponent key={bill.id} {...bill}/>;
 		});
+
+		const style = {
+			marginTop: '24px'
+		};
 
 		return (
 			<div>
@@ -57,14 +71,14 @@ export default class Bill extends Component {
 				</div>
 				<div className="row">
 					<div className="col-xs-12">
-						<table className="table table-bordered">
+						<table className="responsive-table">
 							<thead>
 							<tr>
-								<th>#</th>
-								<th>Название</th>
-								<th>Цена</th>
-								<th>Дата</th>
-								<th><span className="glyphicon glyphicon-remove"></span></th>
+								<th data-field="id">#</th>
+								<th data-field="title">Название</th>
+								<th data-field="price">Цена</th>
+								<th data-field="date">Дата</th>
+								<th><i className="material-icons">delete</i></th>
 							</tr>
 							</thead>
 							<tbody>
@@ -72,14 +86,55 @@ export default class Bill extends Component {
 							<tr>
 								<td></td>
 								<td>
-									<input type="text" ref="title"/>
+									<div className="row">
+										<div className="input-field col s12">
+											<TextField
+												hintText="Название"
+												floatingLabelText="Название"
+											/>
+										</div>
+									</div>
 								</td>
 								<td>
-									<input type="text" ref="price"/>
+									<div className="row">
+										<div className="input-field col s12">
+											<TextField
+												hintText="Цена"
+												floatingLabelText="Цена"
+												onChange={this.keyDownPrice.bind(this)}
+											/>
+										</div>
+									</div>
 								</td>
 								<td>
-									<input type="text" ref="date"/>
-									<button onClick={this.saveBill.bind(this)}>Сохранить</button>
+									<div className="row">
+										<div className="input-field col s6">
+											<DatePicker hintText="Выберите дату"
+											            mode="landscape"
+											            container="dialog"
+											            firstDayOfWeek={1}
+											            maxDate={new Date()}
+											            autoOk={true}
+											            style={style}
+											/>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td colSpan="2">
+									<div className="input-field col s12 right-align">
+										<RaisedButton
+											label="Сохранить"
+											labelPosition="before"
+											primary={true}
+											icon={<ContentSave />}
+											onClick={this.saveBill.bind(this)}
+										/>
+									</div>
 								</td>
 							</tr>
 							</tbody>

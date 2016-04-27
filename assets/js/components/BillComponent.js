@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import * as BillActions from '../actions/BillActions';
+import RaisedButton from 'material-ui/lib/raised-button';
+import Remove from 'material-ui/lib/svg-icons/content/remove-circle-outline';
 
 export default class BillComponent extends Component {
 	constructor (props) {
@@ -18,9 +20,13 @@ export default class BillComponent extends Component {
 				<td>{this.props.price}</td>
 				<td>{this.props.date}</td>
 				<td>
-					<button onClick={this.deleteBill.bind(this)}>
-						<span className="glyphicon glyphicon-remove"></span>
-					</button>
+					<RaisedButton
+						label=" "
+						labelPosition="before"
+						primary={true}
+						icon={<Remove />}
+						onClick={this.deleteBill.bind(this)}
+					/>
 				</td>
 			</tr>
 		);

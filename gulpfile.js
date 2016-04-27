@@ -6,13 +6,14 @@ const config = require('./gulp/configs/main.config');
 const register = require(`./gulp/utils/register`);
 
 register(gulp, plugins, config)([
-  'build-js',
-  'build-scss',
-  'copy',
-  'serve',
-  'watch',
-  'deploy'
+	'build-vendor',
+	'build-js',
+	'build-scss',
+	'copy',
+	'serve',
+	'watch',
+	'deploy'
 ]);
 
-gulp.task('build', gulp.parallel('build-js', 'build-scss', 'copy'));
+gulp.task('build', gulp.parallel('build-vendor', 'build-js', 'build-scss', 'copy'));
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));

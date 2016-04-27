@@ -28,27 +28,26 @@ export default class NavBar extends Component {
 		const navClass = collapsed ? "collapse" : '';
 
 		return (
-			<nav className="navbar navbar-default navbar-fixed-top">
-				<div className="container">
-					<div className="navbar-header">
-						<button type="button" className="navbar-toggle" onClick={this.toogleCollapse.bind(this)}>
-							<span className="sr-only">Toggle navigation</span>
-							<span className="icon-bar"></span>
-							<span className="icon-bar"></span>
-							<span className="icon-bar"></span>
-						</button>
-						<Link to="/" className="navbar-brand">Мой блог</Link>
-					</div>
-					<div id="navbar" className={"navbar-collapse " + navClass}>
-						<ul className="nav navbar-nav">
-							<li className={IndexClass}>
-								<IndexLink to="/" onClick={this.toogleCollapse.bind(this)}>Главная</IndexLink>
-							</li>
-							<li className={BillClass}>
-								<Link to="bill" onClick={this.toogleCollapse.bind(this)}>Мои финансы</Link>
-							</li>
-						</ul>
-					</div>
+			<nav>
+				<div className="nav-wrapper">
+					<Link to="/" className="navbar-brand">Мой блог</Link>
+					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+					<ul className="right hide-on-med-and-down">
+						<li className={IndexClass}>
+							<IndexLink to="/" onClick={this.toogleCollapse.bind(this)}>Главная</IndexLink>
+						</li>
+						<li className={BillClass}>
+							<Link to="bill" onClick={this.toogleCollapse.bind(this)}>Мои финансы</Link>
+						</li>
+					</ul>
+					<ul className="side-nav" id="mobile-demo">
+						<li className={IndexClass}>
+							<IndexLink to="/" onClick={this.toogleCollapse.bind(this)}>Главная</IndexLink>
+						</li>
+						<li className={BillClass}>
+							<Link to="bill" onClick={this.toogleCollapse.bind(this)}>Мои финансы</Link>
+						</li>
+					</ul>
 				</div>
 			</nav>
 		);

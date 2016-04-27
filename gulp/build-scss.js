@@ -8,5 +8,5 @@ module.exports = (gulp, plugins, config) => () => {
 		.pipe(plugins.minifyCss())
     .pipe(plugins.sourcemaps.write())
 		.pipe(plugins.rename({ suffix: '.min' }))
-    .pipe(gulp.dest(`${config.paths.dist}/css`));
+	  .pipe(gulp.dest(`${config.paths.dist}/${config.output.css}`))
 };
